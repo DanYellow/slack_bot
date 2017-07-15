@@ -4,8 +4,16 @@ const nodemon = require('gulp-nodemon')
 const replace = require('rollup-plugin-replace')
 const eslint = require('rollup-plugin-eslint')
 const fs = require('fs')
+const clean = require('gulp-clean')
+var runSequence = require('run-sequence')
 
 const config = require('./src/config.js')
+
+const distDir = './dist'
+
+if (!fs.existsSync(distDir)){
+  fs.mkdirSync(distDir)
+}
 
 const BOT_TOKEN = config[`SLACK_BOT_TOKEN_${process.env.APP}`];
 const getPaths = () => {
@@ -33,7 +41,7 @@ gulp.task('rollup', () => {
     plugins: [
       replace({
         values: {
-          SLACK_BOT_TOKEN: JSON.stringify( BOT_TOKEN ),
+          SLACK_BOT_TOKEN: JSON.stringify( BOT_TOKEN ).replace(/"/g, '\''),
         }
       }),
       eslint()
@@ -42,13 +50,16 @@ gulp.task('rollup', () => {
   }).then(async (bundle) => {
     const result = await bundle.generate();
     fs.writeFileSync(`dist/${getPaths().dist}.js`, result.code);
+    console.log('---------- ENDED ----------')
   })
 })
 
 gulp.task('nodemon', () => {
   nodemon({
-    script: `dist/${getPaths().dist}.js`, 
-    ext: 'js' 
+    script: `dist/${getPaths().dist}.js`,
+    ext: 'js',
+    delay: '2500ms',
+    watch: `dist/${getPaths().dist}.js`,
   })
 })
 
@@ -56,5 +67,13 @@ gulp.task('watch', () => {
   gulp.watch(['./src/root.js', entryPath], ['rollup'])
 })
 
+gulp.task('clean', [ 'rollup', 'nodemon' ] , () => {
+  return gulp.src('dist/*.js', {read: false})
+    .pipe(clean())
+})
 
-gulp.task('default', [ 'rollup', 'nodemon', 'watch' ]);
+gulp.task('start', () => {
+  runSequence('clean', 'rollup', 'nodemon')
+})
+
+gulp.task('default', [ 'start', 'watch' ])
