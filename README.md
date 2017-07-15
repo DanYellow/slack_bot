@@ -1,5 +1,6 @@
 ### useful links
 https://api.slack.com/docs/message-formatting#linking_to_urls
+https://api.slack.com/methods/users.list
 
 # Slack bots
 > Some slack bots for my multiple slack
@@ -22,9 +23,8 @@ https://api.slack.com/docs/message-formatting#linking_to_urls
 ## TODO
 - Add semver
 - Add unit test
+- Remove useless npm script (by add a gulpfile)
 
-## momobot current tasks
-- 
 
 ## future task
-- repeat what someone said after a '?'
+- [x] repeat what someone said after a '?'

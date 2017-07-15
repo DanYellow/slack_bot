@@ -5,10 +5,14 @@
   "author": "DanYellow <jeanlouis.danielo@sfr.fr>",
   "license": "MIT",
   "scripts": {
-    "start": "npm run bot:momo",
-    "bot:momo": "concurrently \"APP=D3 rollup --config rollup.dev.config.js -w\" \"nodemon dist/bundle.d3.js --delay 2500ms\" ",
-    "bot:camp": "concurrently \"APP=CAMPAGNE rollup --config rollup.dev.config.js -w\" \"nodemon dist/bundle.camp.js --delay 2500ms\" ",
+    "start": "npm run build:momo && npm run bot:momo",
+    "build:momo": "APP=D3 rollup --config rollup.dev.config.js",
+    "build:camp": "APP=D3 rollup --config rollup.dev.config.js",
+    "bot:momo": "concurrently \"APP=D3 rollup --config rollup.dev.config.js -w\" \"nodemon dist/bundle.d3.js --delay=2500ms\" ",
+    "bot:camp": "concurrently \"APP=CAMPAGNE rollup --config rollup.dev.config.js -w\" \"nodemon dist/bundle.camp.js --delay=2500ms\" ",
+    "bot:geu": "concurrently \"APP=GEUUU rollup --config rollup.dev.config.js -w\" \"nodemon dist/bundle.geu.js --delay=2500ms\" ",
     "test": "jest --verbose=true --env=jsdom --config=jest.config.json",
+    "gulp": "APP=GEUUU gulp",
     "help": "rollup --help"
   },
   "dependencies": {
@@ -28,6 +32,10 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
+    "gulp": "^3.9.1",
+    "gulp-file": "^0.3.0",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-rollup": "^2.14.0",
     "json-loader": "^0.5.4",
     "nodemon": "^1.11.0",
     "replace": "^0.3.0",
