@@ -14,6 +14,8 @@ const getPaths = () => {
       return {dist: 'bundle.camp', src: 'index.campagne'};
     case 'D3': 
       return {dist: 'bundle.d3', src: 'index'};
+    case 'GEUUU': 
+      return {dist: 'bundle.geu', src: 'index.geu'};
     default:
       return {dist: 'bundle.d3', src: 'index'};
   }
