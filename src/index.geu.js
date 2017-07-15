@@ -2,12 +2,9 @@ const RtmClient = require('@slack/client').RtmClient;
 const CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
 const RTM_EVENTS = require('@slack/client').RTM_EVENTS;
 
-const fetch = require('node-fetch');
-const queryString = require('query-string');
 const moment = require('moment');
 
 const botToken = SLACK_BOT_TOKEN || '';
-const EXPERIMENTAL_CHANNEL = 'G688N5RMF'; // #so_me;
 
 const rtm = new RtmClient(botToken);
 
@@ -54,11 +51,11 @@ const EXCUSES_LIST = [
   'Je repousse la séance à Dimanche. Je ne pourrai pas demain',
   'Absent encore. Présence pour famille requise.',
   'J\'ai dû aller à la poste faire la queue pendant 3h',
-  `J'arrête les séances de street. J'aurai beaucoup à faire dans les prochaines semaines comme je fais de travaux et ce sera difficile d'allier le temps et la fatigue le dimanche. Je reviendrai bien plus tard. Pour l'instant, c'est stand by.`,
+  'J\'arrête les séances de street. J\'aurai beaucoup à faire dans les prochaines semaines comme je fais de travaux et ce sera difficile d\'allier le temps et la fatigue le dimanche. Je reviendrai bien plus tard. Pour l\'instant, c\'est stand by.',
   'Je suis rentré à 8h20. Je suis ko, je dois dormir encore',
   'Je dépose ma mère à l\'aéroport à 6h du mat',
   'Occupé ce week-end',
-  'Je range et je code',
+  'Je range et je code'
 ];
 
 rtm.on(RTM_EVENTS.MESSAGE, (message) => {
@@ -70,14 +67,14 @@ rtm.on(RTM_EVENTS.MESSAGE, (message) => {
     if (prevDayIndex === SUNDAY_INDEX_WEEK) {
       welcomeMessage += ' Alors bon week-end ?';
     }
-    
+
     rtm.sendMessage(welcomeMessage, message.channel);
   }
 
   if (STREETW_REGEX.test(message.text)) {
-    const randomExcuse = EXCUSES_LIST[Math.floor(Math.random() * EXCUSES_LIST.length)]
-    const botMessage = `<@U0BUEELR5> ! Inutile de répondre, j'ai une excuse pour vous : \n ${randomExcuse}`
-    
+    const randomExcuse = EXCUSES_LIST[Math.floor(Math.random() * EXCUSES_LIST.length)];
+    const botMessage = `<@U0BUEELR5> ! Inutile de répondre, j'ai une excuse pour vous : \n ${randomExcuse}`;
+
     rtm.sendMessage(botMessage, message.channel);
   }
 });

@@ -7,7 +7,7 @@ const queryString = require('query-string');
 const moment = require('moment');
 
 const botToken = SLACK_BOT_TOKEN || '';
-const EXPERIMENTAL_CHANNEL = 'G688N5RMF'; // #so_me;
+const EXPERIMENTAL_CHANNEL = 'G688N5RMF';
 
 const rtm = new RtmClient(botToken);
 

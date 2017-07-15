@@ -5,14 +5,11 @@
   "author": "DanYellow <jeanlouis.danielo@sfr.fr>",
   "license": "MIT",
   "scripts": {
-    "start": "npm run build:momo && npm run bot:momo",
-    "build:momo": "APP=D3 rollup --config rollup.dev.config.js",
-    "build:camp": "APP=D3 rollup --config rollup.dev.config.js",
-    "bot:momo": "concurrently \"APP=D3 rollup --config rollup.dev.config.js -w\" \"nodemon dist/bundle.d3.js --delay=2500ms\" ",
-    "bot:camp": "concurrently \"APP=CAMPAGNE rollup --config rollup.dev.config.js -w\" \"nodemon dist/bundle.camp.js --delay=2500ms\" ",
-    "bot:geu": "concurrently \"APP=GEUUU rollup --config rollup.dev.config.js -w\" \"nodemon dist/bundle.geu.js --delay=2500ms\" ",
+    "start": "npm run bot:momo",
     "test": "jest --verbose=true --env=jsdom --config=jest.config.json",
-    "gulp": "APP=GEUUU gulp",
+    "bot:momo": "APP=D3 gulp",
+    "bot:camp": "APP=CAMPAGNE gulp",
+    "bot:geu": "APP=GEUUU gulp",
     "help": "rollup --help"
   },
   "dependencies": {
